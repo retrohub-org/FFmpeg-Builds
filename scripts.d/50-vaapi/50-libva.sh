@@ -21,7 +21,7 @@ ffbuild_dockerbuild() {
         --with-pic
         --disable-docs
         --enable-drm
-        --enable-x11
+        --disable-x11
         --disable-glx
         --disable-wayland
     )
@@ -45,9 +45,9 @@ ffbuild_dockerbuild() {
     make install
 
     gen-implib "$FFBUILD_PREFIX"/lib/{libva.so.2,libva.a}
-    gen-implib "$FFBUILD_PREFIX"/lib/{libva-drm.so.2,libva-drm.a}
-    gen-implib "$FFBUILD_PREFIX"/lib/{libva-x11.so.2,libva-x11.a}
-    rm "$FFBUILD_PREFIX"/lib/libva{,-drm,-x11}{.so*,.la}
+    #gen-implib "$FFBUILD_PREFIX"/lib/{libva-drm.so.2,libva-drm.a}
+    #gen-implib "$FFBUILD_PREFIX"/lib/{libva-x11.so.2,libva-x11.a}
+    rm "$FFBUILD_PREFIX"/lib/libva{.so*,.la}
 
     echo "Libs: -ldl" >> "$FFBUILD_PREFIX"/lib/pkgconfig/libva.pc
 }
