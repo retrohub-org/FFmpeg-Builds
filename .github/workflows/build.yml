@@ -147,7 +147,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [win64,linux64,linuxarm64,macos64]
+        target: [win64,linux64,linuxarm64,macos64,macosarm64]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -171,7 +171,7 @@ jobs:
       - name: Stop Commands
         run: T="$(echo -n ${{ github.token }} | sha256sum | head -c 64)" && echo -e "::add-mask::${T}\n::stop-commands::${T}"
       - name: "Retrieve macOS SDK"
-        if: ${{ matrix.target == 'macos64' }}
+        if: ${{ matrix.target == 'macos64' || matrix.target == 'macosarm64' }}
         uses: actions/cache@v4
         id: "cache-sdk"
         with:
@@ -179,9 +179,10 @@ jobs:
           key: MacOS-sdk
         continue-on-error: false
       - name: "Setup macOS SDK"
-        if: ${{ matrix.target == 'macos64' }}
+        if: ${{ matrix.target == 'macos64' || matrix.target == 'macosarm64' }}
         run: |
           cp ~/MacOSX12.3.sdk.tar.xz images/base-macos64/MacOSX12.3.sdk.tar.xz
+          cp ~/MacOSX12.3.sdk.tar.xz images/base-macosarm64/MacOSX12.3.sdk.tar.xz
       - name: Build target base image
         uses: docker/build-push-action@v3
         with:
@@ -212,13 +213,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [win64,linux64,macos64]
+        target: [win64,linux64,macos64,macosarm64]
         variant: [lgpl-godot]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
       - name: "Retrieve macOS SDK"
-        if: ${{ matrix.target == 'macos64' }}
+        if: ${{ matrix.target == 'macos64' || matrix.target == 'macosarm64' }}
         uses: actions/cache@v4
         id: "cache-sdk"
         with:
@@ -226,9 +227,10 @@ jobs:
           key: MacOS-sdk
         continue-on-error: false
       - name: "Setup macOS SDK"
-        if: ${{ matrix.target == 'macos64' }}
+        if: ${{ matrix.target == 'macos64' || matrix.target == 'macosarm64' }}
         run: |
-          ln -s ~/MacOSX12.3.sdk.tar.xz images/base-macos64/MacOSX12.3.sdk.tar.xz
+          cp ~/MacOSX12.3.sdk.tar.xz images/base-macos64/MacOSX12.3.sdk.tar.xz
+          cp ~/MacOSX12.3.sdk.tar.xz images/base-macosarm64/MacOSX12.3.sdk.tar.xz
       - name: Install buildx
         uses: docker/setup-buildx-action@v2
         with:
@@ -277,13 +279,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [win64,linux64,macos64]
+        target: [win64,linux64,macos64,macosarm64]
         variant: [lgpl-godot]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
       - name: "Retrieve macOS SDK"
-        if: ${{ matrix.target == 'macos64' }}
+        if: ${{ matrix.target == 'macos64' || matrix.target == 'macosarm64' }}
         uses: actions/cache@v4
         id: "cache-sdk"
         with:
@@ -291,9 +293,10 @@ jobs:
           key: MacOS-sdk
         continue-on-error: false
       - name: "Setup macOS SDK"
-        if: ${{ matrix.target == 'macos64' }}
+        if: ${{ matrix.target == 'macos64' || matrix.target == 'macosarm64' }}
         run: |
-          ln -s ~/MacOSX12.3.sdk.tar.xz images/base-macos64/MacOSX12.3.sdk.tar.xz
+          cp ~/MacOSX12.3.sdk.tar.xz images/base-macos64/MacOSX12.3.sdk.tar.xz
+          cp ~/MacOSX12.3.sdk.tar.xz images/base-macosarm64/MacOSX12.3.sdk.tar.xz
       - name: Login to Docker
         uses: docker/login-action@v2
         with:

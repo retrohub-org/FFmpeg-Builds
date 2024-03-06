@@ -57,6 +57,12 @@ ffbuild_dockerbuild() {
             ARCH=x86_64
             STATIC_LDFLAGS=-lc++
         )
+    elif [[ $TARGET == macosarm64 ]]; then
+        myconf+=(
+            OS=darwin
+            ARCH=arm64
+            STATIC_LDFLAGS=-lc++
+        )
     else
         echo "Unknown target"
         return -1
