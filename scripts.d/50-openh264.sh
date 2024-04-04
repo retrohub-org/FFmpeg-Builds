@@ -46,6 +46,11 @@ ffbuild_dockerbuild() {
             OS=linux
             ARCH=x86_64
         )
+    elif [[ $TARGET == linux32 ]]; then
+        myconf+=(
+            OS=linux
+            ARCH=x86
+        )
     elif [[ $TARGET == linuxarm64 ]]; then
         myconf+=(
             OS=linux

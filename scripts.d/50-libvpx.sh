@@ -37,6 +37,11 @@ ffbuild_dockerbuild() {
             --target=x86_64-linux-gcc
         )
         export CROSS="$FFBUILD_CROSS_PREFIX"
+    elif [[ $TARGET == linux32 ]]; then
+        myconf+=(
+            --target=x86-linux-gcc
+        )
+        export CROSS="$FFBUILD_CROSS_PREFIX"
     elif [[ $TARGET == linuxarm64 ]]; then
         myconf+=(
             --target=arm64-linux-gcc

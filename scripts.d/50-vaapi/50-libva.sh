@@ -5,6 +5,7 @@ SCRIPT_COMMIT="984dfee4177021c400367f5dffc0776a6dd745dc"
 
 ffbuild_enabled() {
     [[ $TARGET != linux* ]] && return -1
+    [[ $TARGET == linux32 ]] && return -1
     [[ $TARGET == linuxarm64 ]] && return -1
     return 0
 }
@@ -30,6 +31,12 @@ ffbuild_dockerbuild() {
         myconf+=(
             --host="$FFBUILD_TOOLCHAIN"
             --with-drivers-path="/usr/lib/x86_64-linux-gnu/dri"
+            --sysconfdir="/etc"
+        )
+    elif [[ $TARGET == linux32 ]]; then
+        myconf+=(
+            --host="$FFBUILD_TOOLCHAIN"
+            --with-drivers-path="/usr/lib/i686-linux-gnu/dri"
             --sysconfdir="/etc"
         )
     else
