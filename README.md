@@ -1,26 +1,19 @@
 # FFmpeg Static Auto-Builds
 
-Static Windows (x86_64), macOS (x86_64 and arm64) and Linux (x86_64) Builds of ffmpeg master and latest release branch.
+Static Windows (x86_64), macOS (x86_64 and arm64) and Linux (x86_64 and x86_32) Builds of ffmpeg master and latest release branch.
 
 Windows builds are targetting Windows 7 and newer.
 
 macOS (x86_64 and arm64) builds are targetting macOS 12.3 and newer (Monterey - darwin21.4)
 
-Linux (x86_64) builds are targetting Ubuntu 16.04 (glibc-2.23 + linux-4.4) and anything more recent.
+Linux (x86_64 and x86_32) builds are targetting Ubuntu 16.04 (glibc-2.23 + linux-4.4) and anything more recent.
 
 Linux (arm64) builds are targetting Ubuntu 18.04 (glibc-2.27 + linux-4.15) and anything more recent.
 
 ## Auto-Builds
 
-Builds run daily at 12:00 UTC (or GitHubs idea of that time) and are automatically released on success.
-
-**Auto-Builds run ONLY for win64 and linux(arm)64. There are no win32/x86 auto-builds, though you can produce win32 builds yourself following the instructions below.**
-
-### Release Retention Policy
-
-- The last build of each month is kept for two years.
-- The last 14 daily builds are kept.
-- The special "latest" build floats and provides consistent URLs always pointing to the latest build.
+> [!NOTE]
+> Auto-builds on this fork are disabled due to licensing concerns.
 
 ## Package List
 
@@ -58,6 +51,7 @@ Available targets:
 * `win32` (x86 Windows)
 * `macos64` (x86_64 macOS)
 * `macosarm64` (arm64 macOS)
+* `linux32` (x86_32 Linux, glibc>=2.23, linux>=4.4)
 * `linux64` (x86_64 Linux, glibc>=2.23, linux>=4.4)
 * `linuxarm64` (arm64 (aarch64) Linux, glibc>=2.27, linux>=4.15)
 
