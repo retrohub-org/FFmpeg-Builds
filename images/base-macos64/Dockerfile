@@ -1,12 +1,10 @@
 ARG GH_REPO=ghcr.io/btbn/ffmpeg-builds
 FROM $GH_REPO/base:latest
 
-RUN --mount=src=MacOSX12.3.sdk.tar.xz,dst=/sdk.tar.xz \
+RUN --mount=src=MacOSX15.1.sdk.tar.xz,dst=/sdk.tar.xz \
     git clone https://github.com/tpoechtrager/osxcross.git /opt/osxcross && \
     cd /opt/osxcross && \
-    git fetch --all && \
-    git checkout ff8d100f3f026b4ffbe4ce96d8aac4ce06f1278b && \
-    ln -s /sdk.tar.xz /opt/osxcross/tarballs/MacOSX12.3.sdk.tar.xz && \
+    ln -s /sdk.tar.xz /opt/osxcross/tarballs/MacOSX15.1.sdk.tar.xz && \
     UNATTENDED=1 ./build.sh
 
 RUN rustup target add x86_64-apple-darwin

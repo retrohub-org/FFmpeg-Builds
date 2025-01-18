@@ -28,7 +28,7 @@ Every file corresponds to its respective package.
 * docker
 
 > [!NOTE]
-> To compile for macOS, you'll need to provide the SDK (`MacOSX12.3.sdk.tar.xz`) yourself. This can be extracted from a macOS machine or from downloading Xcode by [follow these instructions](https://github.com/tpoechtrager/osxcross?tab=readme-ov-file#packaging-the-sdk).
+> To compile for macOS, you'll need to provide the SDK (`MacOSX15.1.sdk.tar.xz`) yourself. This can be extracted from a macOS machine or from downloading Xcode by [follow these instructions](https://github.com/tpoechtrager/osxcross?tab=readme-ov-file#packaging-the-sdk).
 >
 > Once extracted, place the SDK in the following directories, depending on your target:
 > - **x86_64** - `images/base-macos64`

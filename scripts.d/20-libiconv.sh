@@ -1,7 +1,10 @@
 #!/bin/bash
 
 SCRIPT_REPO="https://git.savannah.gnu.org/git/libiconv.git"
-SCRIPT_COMMIT="6e2b31f6d66739c5abd850338ea68c6bd2012812"
+SCRIPT_COMMIT="bc17565f9a4caca27161609c526b776287a8270e"
+
+SCRIPT_REPO2="https://git.savannah.gnu.org/git/gnulib.git"
+SCRIPT_COMMIT2="e9c1d94f58eaacee919bb2015da490b980a5eedf"
 
 # macOS has iconv in the system, but this one is GNU's iconv. This creates name clash between iconv and libiconv, and
 # linker fails to find the correct one. More info at https://stackoverflow.com/questions/57734434/libiconv-or-iconv-undefined-symbol-on-mac-osx
@@ -12,12 +15,15 @@ ffbuild_enabled() {
 
 ffbuild_dockerdl() {
     to_df "RUN retry-tool sh -c \"rm -rf $SELF && git clone '$SCRIPT_REPO' $SELF\" && git -C $SELF checkout \"$SCRIPT_COMMIT\""
+    to_df "RUN cd $SELF && retry-tool sh -c \"rm -rf gnulib && git clone '$SCRIPT_REPO2' gnulib\" && git -C gnulib checkout \"$SCRIPT_COMMIT2\" && rm -rf gnulib/.git"
 }
 
 ffbuild_dockerbuild() {
     cd "$FFBUILD_DLDIR/$SELF"
 
-    retry-tool ./autopull.sh --one-time
+    # No automake 1.17 packaged anywhere yet.
+    sed -i 's/-1.17/-1.16/' Makefile.devel
+
     (unset CC CFLAGS GMAKE && ./autogen.sh)
 
     local myconf=(
